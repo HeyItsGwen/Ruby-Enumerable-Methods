@@ -51,6 +51,13 @@ module Enumerable
       
 end
 
+def multiply_els(arr)
+
+  include Enumerable
+    arr.my_inject{|x,y| x * y}
+
+end
+
 myarr = [2, 2, 3, 4]
 myWords = ['this', 'that', 'theOther']
 puts 'add'
