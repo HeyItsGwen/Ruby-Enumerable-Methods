@@ -19,6 +19,23 @@ module Enumerable
     self.my_each{|x| returnArr << x if yield(x)}
     returnArr.nil? ? (return 'nothing') : (return returnArr)
   end
+
+  def my_all?
+    self.my_select{|x| yield(x)}.length === self.length ? true : false
+  end
+
+  def my_any?
+    self.my_select{|x| yield(x)}.length > 0 ? true : false
+  end
+
+  def my_none?
+    self.my_select{|x| yield(x)}.length > 0 ? false : true
+  end
+
+  def my_count
+    return self.length unless block_given?
+    return self.my_select{|x| yield(x)}.length 
+  end
       
 end
 
