@@ -36,6 +36,18 @@ module Enumerable
     return self.length unless block_given?
     return self.my_select{|x| yield(x)}.length 
   end
+
+  def my_map
+    returnArr = []
+    self.my_each{|x| returnArr << yield(x)}
+    return returnArr
+  end
+
+  def my_inject
+    j=1
+    self.my_each{|x| j = yield(j,x)}
+    return j
+  end
       
 end
 
