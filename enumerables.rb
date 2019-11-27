@@ -53,14 +53,14 @@ module Enumerable
 
   def my_any?(pattern = nil)
     if block_given?
-      self.my_select { |x| yield(x) }.length.positive? ? (return true) : (return false)
+      self.my_select { |x| yield(x) }.length.positive? ? (return true) : (return false) 
     elsif !pattern.nil?
       if pattern.is_a?(Regexp)
         self.my_each { |x| return true if pattern.match(x.to_s) }
       elsif pattern.is_a?(Class)
         self.my_each { |x| return true if x.is_a?(pattern) }
       else
-        self.my_each { return true if x == pattern }
+        self.my_each { |x| return true if x == pattern }
       end
     else
       self.my_each { |x| return true if x }
@@ -77,24 +77,24 @@ module Enumerable
       elsif pattern.is_a?(Class)
         self.my_each { |x| return false if x.is_a?(pattern) }
       else
-        self.my_each { |x| return false if x == pat }
+        self.my_each { |x| return false if x == pattern }
       end
     else
       self.my_each { |x| return false if x }
     end
-    true
+    false
   end
 
   def my_count(elem = nil)
-    return self.length unless block_given?
-
-    if elem.nil?
-      return self.my_select { |x| yield(x) }.length
+    total = 0
+    if block_given?
+      self.my_each { |x| total += 1 if yield(x) }
+    elsif !elem.nil?
+      self.my_each { |x| total += 1 if x == elem }
     else
-      count = 0
-      self.my_each { |x| count += 1 if x == elem }
-      return count
+      total = self.size
     end
+    total
   end
 
   def my_map
