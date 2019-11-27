@@ -69,7 +69,7 @@ module Enumerable
 #done
   def my_none?(pattern = nil)
     if block_given?
-      self.my_select{|x| yield(x)}.length.positive? ? (return true) : (return false)
+      self.my_select{|x| yield(x)}.length.positive? ? (return false) : (return true)
     elsif !pattern.nil?
       if pattern.is_a?(Regexp)
         self.my_each{ |x| return false if pattern.match(x.to_s)}
@@ -85,9 +85,7 @@ module Enumerable
   end
 #done
   def my_count(elem = nil)
-
     return self.length unless block_given?
-
     if elem.nil?
       return self.my_select{ |x| yield(x) }.length 
     else
@@ -140,4 +138,4 @@ myarr = [1, 2, 3, 4]
 myWords = ['this', 'that', 'theOther']
 mystring = 'hello there friends'
 
-myarr.my_inject{|x|}
+puts myarr.my_inject(1){|x,y|x*y}
