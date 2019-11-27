@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 module Enumerable
-  # rubocop:disable Style/GuardClause, Style/RedundantSelf, Style/For, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+  # rubocop:disable Style/GuardClause, Style/RedundantSelf, Style/For
+  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
   def my_each
     if block_given?
@@ -126,7 +127,8 @@ module Enumerable
     [result, sym]
   end
 
-  # rubocop: enable Style/GuardClause, Style/RedundantSelf, Style/For, Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity
+  # rubocop:enable Style/GuardClause, Style/RedundantSelf, Style/For
+  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 end
 def multiply_els(arr)
   arr.my_inject(:*)
