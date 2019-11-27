@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Enumerable
-  # rubocop:disable Style/GuardClause, Style/RedundantSelf, Style/For
+  # rubocop:disable Style/RedundantSelf, Style/For
   # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
   def my_each
@@ -53,7 +53,7 @@ module Enumerable
 
   def my_any?(pattern = nil)
     if block_given?
-      self.my_select { |x| yield(x) }.length.positive? ? (return true) : (return false) 
+      self.my_select { |x| yield(x) }.length.positive? ? (return true) : (return false)
     elsif !pattern.nil?
       if pattern.is_a?(Regexp)
         self.my_each { |x| return true if pattern.match(x.to_s) }
@@ -127,7 +127,7 @@ module Enumerable
     [result, sym]
   end
 
-  # rubocop:enable Style/GuardClause, Style/RedundantSelf, Style/For
+  # rubocop:enable Style/RedundantSelf, Style/For
   # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 end
 def multiply_els(arr)
