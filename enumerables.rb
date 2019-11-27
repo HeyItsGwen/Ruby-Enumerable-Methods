@@ -70,7 +70,7 @@ module Enumerable
 
   def my_none?(pattern = nil)
     if block_given?
-      self.my_select { |x| yield(x) }.length.positive? ? (return true) : (return false)
+      self.my_each { |x| return false if yield(x) }
     elsif !pattern.nil?
       if pattern.is_a?(Regexp)
         self.my_each { |x| return false if pattern.match(x.to_s) }
@@ -133,3 +133,7 @@ end
 def multiply_els(arr)
   arr.my_inject(:*)
 end
+myarr = [1, 3, 4]
+p = proc { |x| x == 5 }
+puts myarr.my_none?(&p)
+puts myarr.none?(p)
