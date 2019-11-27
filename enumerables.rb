@@ -82,7 +82,7 @@ module Enumerable
     else
       self.my_each { |x| return false if x }
     end
-    false
+    true
   end
 
   def my_count(elem = nil)
