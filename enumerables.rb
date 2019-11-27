@@ -32,7 +32,7 @@ module Enumerable
       to_enum(:my_select)
     end
   end
-
+#done
   def my_all?(pattern = nil)
     if block_given?
       self.my_select{ |x| yield(x) }.length === self.length ? (return true) : (return false)
@@ -49,7 +49,7 @@ module Enumerable
     end
     true
   end
-
+#done
   def my_any?(pattern = nil)
     if block_given?
       self.my_select{ |x| yield(x) }.length.positive? ? (return true) : (return false)
@@ -66,7 +66,7 @@ module Enumerable
     end
     false
   end
-
+#done
   def my_none?(pattern = nil)
     if block_given?
       self.my_select{|x| yield(x)}.length.positive? ? (return true) : (return false)
@@ -83,7 +83,7 @@ module Enumerable
     end
     true
   end
-
+#done
   def my_count(elem = nil)
 
     return self.length unless block_given?
@@ -96,7 +96,7 @@ module Enumerable
       return count
     end
   end
-
+#done
   def my_map
     unless !block_given? 
       returnArr = []
@@ -106,10 +106,25 @@ module Enumerable
     to_enum(:my_map)
   end
 
-  def my_inject
-    j=1
-    self.my_each{|x| j = yield(j,x)}
-    return j
+  def my_inject(*args)
+    result, sym = inj_param(*args)
+    arr = result ? to_a : to_a[1..-1]
+    result ||= to_a[0]
+    if block_given?
+      arr.my_each { |x| result = yield(result, x) }
+    elsif sym
+      arr.my_each { |x| result = result.public_send(sym, x) }
+    end
+    result
+  end
+
+  def inj_param(*args)
+    result, sym = nil
+    args.my_each do |arg|
+      result = arg if arg.is_a? Numeric
+      sym = arg unless arg.is_a? Numeric
+    end
+    [result, sym]
   end
       
 end
@@ -117,7 +132,7 @@ end
 def multiply_els(arr)
 
   include Enumerable
-    arr.my_inject{|x,y| x * y}
+    arr.my_inject(:*)
 
 end
 
@@ -125,4 +140,4 @@ myarr = [1, 2, 3, 4]
 myWords = ['this', 'that', 'theOther']
 mystring = 'hello there friends'
 
-myarr.my_each
+myarr.my_inject{|x|}
